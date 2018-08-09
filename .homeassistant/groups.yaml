@@ -1,0 +1,18 @@
+living_room:
+  name: Living Room
+  view: yes
+  entities:
+    - light.tall
+    - light.pineapple
+
+bedroom:
+  name: Bedroom
+  view: yes
+  entities:
+    - light.sengled_e11g13_03065177_1
+
+basement:
+  name: Basement
+  view: yes
+  entities:
+    - light.sengled_e11g13_030675d0_1

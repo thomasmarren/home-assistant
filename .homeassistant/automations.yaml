@@ -1,0 +1,38 @@
+- alias: Turn on lights at sunset if someone is home 
+  trigger:
+    platform: sun
+    event: sunset
+    offset: "-00:30:00"
+  condition:
+    - condition: state
+      entity_id: group.all_devices
+      state: home
+    - condition: state
+      entity_id: group.all_lights
+      state: 'off'
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: group.all_lights
+        brightness: 5
+    - service: light.turn_on
+      data:
+        entity_id: group.all_lights
+        brightness: 190
+        transition: 60
+
+- alias: Come home
+  trigger:
+  - entity_id: group.all_devices
+    platform: state
+    from: not_home
+    to: home
+  condition:
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: group.all_lights
+        brightness: 190

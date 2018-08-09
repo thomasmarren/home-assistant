@@ -1,0 +1,10 @@
+secrets.yaml
+deps
+ecobee.conf
+.storage
+*.db
+*.log
+tts/
+.HA_VERSION
+.uuid
+known_devices.yaml

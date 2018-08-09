@@ -1,0 +1,15 @@
+light.tall:
+  config_entry_id:
+  name:
+  platform: lifx
+  unique_id: d0:73:d5:22:5b:b0
+light.pineapple:
+  config_entry_id:
+  name:
+  platform: lifx
+  unique_id: d0:73:d5:23:5f:60
+media_player.living_room:
+  config_entry_id: 17e10c7cdd1c48afb64b5d0cf3e0ebc6
+  name:
+  platform: cast
+  unique_id: ef0581c5-af42-3d29-0ad7-bf5275fa1ae7
