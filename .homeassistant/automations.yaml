@@ -1,3 +1,70 @@
+- alias: Turn on AC at night
+  trigger:
+    platform: time
+    at: '22:30:00'
+  condition:
+    - condition: state
+      entity_id: group.all_devices
+      state: home
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.centralite_3210l_0e94db7f_1
+    
+- alias: Switch - Turn off all downstairs lights
+  trigger:
+    entity_id: binary_sensor.zha_05980111_4
+    platform: state
+    to: 'on'
+  action:
+    - service: light.turn_off
+      data:
+        entity_id: light.living_room_lights
+
+- alias: Switch - Turn off bedroom light
+  trigger:
+    entity_id: binary_sensor.zha_05980111_3
+    platform: state
+    to: 'on'
+  action:
+    - service: light.toggle
+      data:
+        entity_id: light.sengled_e11g13_03065177_1
+
+- alias: Turn on light when going downstairs at night
+  trigger:
+    entity_id: binary_sensor.centralite_3328g_10c0cc70_1_1280 
+    platform: state
+    to: 'on'
+  condition:
+    - condition: time
+      after: '20:00:00'
+      before: '07:00:00' 
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.living_room_lights
+        brightness: 80
+
+- alias: Turn off light when coming back up after 5 minutes
+  trigger:
+    - entity_id: binary_sensor.centralite_3328g_10c0cc70_1_1280 
+      platform: state
+      to: 'off'
+      for:
+        minutes: 5
+  condition:
+    - condition: time
+      after: '23:00:00'
+      before: '07:00:00' 
+    - condition: state
+      entity_id: light.living_room_lights 
+      state: 'on'
+  action:
+    - service: light.turn_off
+      data:
+        entity_id: light.living_room_lights
+
 - alias: Turn on lights at sunset if someone is home 
   trigger:
     platform: sun
@@ -8,16 +75,16 @@
       entity_id: group.all_devices
       state: home
     - condition: state
-      entity_id: group.all_lights
+      entity_id: light.living_room_lights
       state: 'off'
   action:
     - service: light.turn_on
       data:
-        entity_id: group.all_lights
+        entity_id: light.living_room_lights
         brightness: 5
     - service: light.turn_on
       data:
-        entity_id: group.all_lights
+        entity_id: light.living_room_lights
         brightness: 190
         transition: 60
 
@@ -28,11 +95,11 @@
     from: not_home
     to: home
   condition:
-    - condition: state
-      entity_id: sun.sun
-      state: below_horizon
+    - condition: sun
+      after: sunset
+      after_offset: "-00:35:00"
   action:
     - service: light.turn_on
       data:
-        entity_id: group.all_lights
+        entity_id: light.living_room_lights
         brightness: 190
