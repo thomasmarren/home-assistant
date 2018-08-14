@@ -8,3 +8,5 @@ tts/
 .HA_VERSION
 .uuid
 known_devices.yaml
+.cloud
+*.DS_STORE

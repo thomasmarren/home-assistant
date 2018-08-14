@@ -1,16 +1,36 @@
-- alias: Turn on AC at night
+- alias: AC off
   trigger:
-    platform: time
-    at: '22:30:00'
+    - entity_id: sensor.centralite_3328g_10c0cc70_1_1026
+      platform: numeric_state
+      below: 71
+    - platform: time
+      at: '10:05:00'
   condition:
+    - condition: time
+      after: '22:00:00'
+      before: '10:00:00'
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.centralite_3210l_0e94db7f_1
+
+- alias: AC on
+  trigger:
+    - entity_id: sensor.centralite_3328g_10c0cc70_1_1026
+      platform: numeric_state
+      above: 73
+  condition:
+    - condition: time
+      after: '22:00:00'
+      before: '10:00:00'
     - condition: state
       entity_id: group.all_devices
       state: home
   action:
-    - service: switch.turn_on
+    - service: switch.turn_off
       data:
         entity_id: switch.centralite_3210l_0e94db7f_1
-    
+
 - alias: Switch - Turn off all downstairs lights
   trigger:
     entity_id: binary_sensor.zha_05980111_4
@@ -21,7 +41,7 @@
       data:
         entity_id: light.living_room_lights
 
-- alias: Switch - Turn off bedroom light
+- alias: Switch - Toggle bedroom light
   trigger:
     entity_id: binary_sensor.zha_05980111_3
     platform: state
@@ -33,13 +53,16 @@
 
 - alias: Turn on light when going downstairs at night
   trigger:
-    entity_id: binary_sensor.centralite_3328g_10c0cc70_1_1280 
+    entity_id: binary_sensor.centralite_3328g_10c0cc70_1_1280
     platform: state
     to: 'on'
   condition:
-    - condition: time
-      after: '20:00:00'
-      before: '07:00:00' 
+    - condition: state
+      entity_id: media_player.living_room
+      state: 'unavailable'
+    - condition: state
+      entity_id: light.living_room_lights
+      state: 'off'
   action:
     - service: light.turn_on
       data:
@@ -48,24 +71,24 @@
 
 - alias: Turn off light when coming back up after 5 minutes
   trigger:
-    - entity_id: binary_sensor.centralite_3328g_10c0cc70_1_1280 
+    - entity_id: binary_sensor.centralite_3328g_10c0cc70_1_1280
       platform: state
       to: 'off'
       for:
         minutes: 5
   condition:
     - condition: time
-      after: '23:00:00'
-      before: '07:00:00' 
+      after: '22:00:00'
+      before: '07:00:00'
     - condition: state
-      entity_id: light.living_room_lights 
+      entity_id: light.living_room_lights
       state: 'on'
   action:
     - service: light.turn_off
       data:
         entity_id: light.living_room_lights
 
-- alias: Turn on lights at sunset if someone is home 
+- alias: Turn on lights at sunset if someone is home
   trigger:
     platform: sun
     event: sunset
@@ -81,7 +104,7 @@
     - service: light.turn_on
       data:
         entity_id: light.living_room_lights
-        brightness: 5
+        brightness: 1
     - service: light.turn_on
       data:
         entity_id: light.living_room_lights
