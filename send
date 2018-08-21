@@ -1,0 +1,8 @@
+#!/bin/sh
+
+scp -r ~/dev/homeassistant/.homeassistant/automations.yaml homeassistant@192.168.1.175:/home/homeassistant/.homeassistant/automations.yaml
+scp -r ~/dev/homeassistant/.homeassistant/configuration.yaml homeassistant@192.168.1.175:/home/homeassistant/.homeassistant/configuration.yaml
+scp -r ~/dev/homeassistant/.homeassistant/entity_registry.yaml homeassistant@192.168.1.175:/home/homeassistant/.homeassistant/entity_registry.yaml
+scp -r ~/dev/homeassistant/.homeassistant/customize.yaml homeassistant@192.168.1.175:/home/homeassistant/.homeassistant/customize.yaml
+scp -r ~/dev/homeassistant/.homeassistant/scripts.yaml homeassistant@192.168.1.175:/home/homeassistant/.homeassistant/scripts.yaml
+scp -r ~/dev/homeassistant/.homeassistant/groups.yaml homeassistant@192.168.1.175:/home/homeassistant/.homeassistant/groups.yaml

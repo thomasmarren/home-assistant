@@ -1,10 +1,17 @@
+- alias: AC off - morning
+  trigger:
+    - platform: time
+      at: '10:05:00'
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.centralite_3210l_0e94db7f_1
+
 - alias: AC off
   trigger:
     - entity_id: sensor.centralite_3328g_10c0cc70_1_1026
       platform: numeric_state
       below: 71
-    - platform: time
-      at: '10:05:00'
   condition:
     - condition: time
       after: '22:00:00'
@@ -19,6 +26,8 @@
     - entity_id: sensor.centralite_3328g_10c0cc70_1_1026
       platform: numeric_state
       above: 73
+    - platform: time
+      at: '22:05:00'
   condition:
     - condition: time
       after: '22:00:00'
@@ -27,9 +36,33 @@
       entity_id: group.all_devices
       state: home
   action:
-    - service: switch.turn_off
+    - service: switch.turn_on
       data:
         entity_id: switch.centralite_3210l_0e94db7f_1
+
+- alias: Bedroom door open
+  trigger:
+    - platform: time
+      at: '21:45:00'
+  action:
+    - service: notify.TOMS_PHONE
+      data:
+        title: Door's open
+        message: Close the door. AC is coming on soon
+
+- alias: Go upstairs for bed
+  trigger:
+    platform: state
+    entity_id: media_player.living_room
+    to: 'unavailable'
+  condition:
+    - condition: time
+      after: '22:00:00'
+      before: '07:00:00'
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.sengled_e11g13_03065177_1
 
 - alias: Switch - Turn off all downstairs lights
   trigger:
@@ -37,9 +70,7 @@
     platform: state
     to: 'on'
   action:
-    - service: light.turn_off
-      data:
-        entity_id: light.living_room_lights
+    - service: script.turn_off_living_room_lights
 
 - alias: Switch - Toggle bedroom light
   trigger:
@@ -51,12 +82,15 @@
       data:
         entity_id: light.sengled_e11g13_03065177_1
 
-- alias: Turn on light when going downstairs at night
+- alias: Stairs nightlight on
   trigger:
     entity_id: binary_sensor.centralite_3328g_10c0cc70_1_1280
     platform: state
     to: 'on'
   condition:
+    - condition: time
+      after: '22:00:00'
+      before: '10:00:00'
     - condition: state
       entity_id: media_player.living_room
       state: 'unavailable'
@@ -69,7 +103,7 @@
         entity_id: light.living_room_lights
         brightness: 80
 
-- alias: Turn off light when coming back up after 5 minutes
+- alias: Stairs nightlight off
   trigger:
     - entity_id: binary_sensor.centralite_3328g_10c0cc70_1_1280
       platform: state
@@ -79,7 +113,10 @@
   condition:
     - condition: time
       after: '22:00:00'
-      before: '07:00:00'
+      before: '10:00:00'
+    - condition: state
+      entity_id: media_player.living_room
+      state: 'unavailable'
     - condition: state
       entity_id: light.living_room_lights
       state: 'on'
@@ -88,7 +125,7 @@
       data:
         entity_id: light.living_room_lights
 
-- alias: Turn on lights at sunset if someone is home
+- alias: Lights at sunset
   trigger:
     platform: sun
     event: sunset
@@ -109,9 +146,9 @@
       data:
         entity_id: light.living_room_lights
         brightness: 190
-        transition: 60
+        transition: 300
 
-- alias: Come home
+- alias: Come home at night
   trigger:
   - entity_id: group.all_devices
     platform: state
@@ -122,7 +159,28 @@
       after: sunset
       after_offset: "-00:35:00"
   action:
-    - service: light.turn_on
+    - service: script.turn_on_living_room_lights
+
+- alias: Come home
+  trigger:
+  - entity_id: group.all_devices
+    platform: state
+    from: not_home
+    to: home
+  action:
+    - service: climate.set_away_mode
       data:
-        entity_id: light.living_room_lights
-        brightness: 190
+        entity_id: climate.home
+        away_mode: 'off'
+
+- alias: Leave home
+  trigger:
+  - entity_id: group.all_devices
+    platform: state
+    from: home
+    to: not_home
+  action:
+    - service: climate.set_away_mode
+      data:
+        entity_id: climate.home
+        away_mode: 'on'

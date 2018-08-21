@@ -83,3 +83,8 @@ switch.centralite_3210l_0e94db7f_1:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0e:94:db:7f-1
+media_player.chromecast7779:
+  config_entry_id: 17e10c7cdd1c48afb64b5d0cf3e0ebc6
+  name:
+  platform: cast
+  unique_id: 3e635579-31a1-6ffd-4b56-a43cb1652268

@@ -11,7 +11,7 @@ light.sengled_e11g13_030675d0_1:
   friendly_name: Basement
 
 sensor.centralite_3328g_10c0cc70_1_1026:
-  friendly_name: Stairs
+  friendly_name: Bedroom Temp
 
 binary_sensor.centralite_3450l_05980111_1:
   friendly_name: Switch - Circle
@@ -20,10 +20,10 @@ binary_sensor.zha_05980111_2:
   friendly_name: Switch - Diamond
 
 binary_sensor.zha_05980111_3:
-  friendly_name: Switch - Hexagon
+  friendly_name: Switch - Hexagon (Toggle bedroom light)
 
 binary_sensor.zha_05980111_4:
-  friendly_name: Switch - Square
+  friendly_name: Switch - Square (Turn off all downstairs lights)
 
 sensor.sengled_e11g13_03065177_1_1794:
   friendly_name: Bedroom Sengled Sensor
@@ -35,4 +35,14 @@ sensor.sengled_e11g13_030675d0_1_1794:
 
 sensor.centralite_3210l_0e94db7f_1_1794:
   friendly_name: AC Outlet - Unknown sensor
+  hidden: true
+
+switch.centralite_3210l_0e94db7f_1:
+  friendly_name: AC
+
+media_player.chromecast7779:
+  hidden: true
+
+weather.home:
+  friendly_name: Ecobee Weather
   hidden: true

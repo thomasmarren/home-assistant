@@ -38,6 +38,11 @@ device_tracker:
     consider_home: 180
     track_new_devices: no
 
+notify:
+  - name: TOMS_PHONE
+    platform: pushbullet
+    api_key: !secret pushbullet_api_key
+
 # Show links to resources in log and frontend
 # introduction:
 
