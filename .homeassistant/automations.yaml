@@ -9,7 +9,7 @@
 
 - alias: AC off
   trigger:
-    - entity_id: sensor.centralite_3328g_10c0cc70_1_1026
+    - entity_id: sensor.samjin_multi_010060fa_1_1026
       platform: numeric_state
       below: 71
   condition:
@@ -23,7 +23,7 @@
 
 - alias: AC on
   trigger:
-    - entity_id: sensor.centralite_3328g_10c0cc70_1_1026
+    - entity_id: sensor.samjin_multi_010060fa_1_1026
       platform: numeric_state
       above: 73
     - platform: time
@@ -40,15 +40,32 @@
       data:
         entity_id: switch.centralite_3210l_0e94db7f_1
 
-- alias: Bedroom door open
+- alias: Bedroom door left open
   trigger:
     - platform: time
       at: '21:45:00'
+  condition:
+    - condition: state
+      entity_id: binary_sensor.samjin_multi_010060fa_1_1280
+      state: 'on'
   action:
     - service: notify.TOMS_PHONE
       data:
         title: Door's open
         message: Close the door. AC is coming on soon
+
+- alias: Open bedroom door
+  trigger:
+    entity_id: binary_sensor.samjin_multi_010060fa_1_1280
+    platform: state
+    to: 'on'
+  condition:
+    - condition: sun
+      after: sunset
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.sengled_e11g13_03065177_1
 
 - alias: Go upstairs for bed
   trigger:
@@ -60,9 +77,10 @@
       after: '22:00:00'
       before: '07:00:00'
   action:
-    - service: light.turn_on
+    - service: light.turn_off
       data:
-        entity_id: light.sengled_e11g13_03065177_1
+        entity_id: light.living_room_lights
+        transition: 180
 
 - alias: Switch - Turn off all downstairs lights
   trigger:
@@ -89,8 +107,8 @@
     to: 'on'
   condition:
     - condition: time
-      after: '22:00:00'
-      before: '10:00:00'
+      after: '21:00:00'
+      before: '7:00:00'
     - condition: state
       entity_id: media_player.living_room
       state: 'unavailable'
@@ -112,8 +130,8 @@
         minutes: 5
   condition:
     - condition: time
-      after: '22:00:00'
-      before: '10:00:00'
+      after: '21:00:00'
+      before: '7:00:00'
     - condition: state
       entity_id: media_player.living_room
       state: 'unavailable'
@@ -121,9 +139,7 @@
       entity_id: light.living_room_lights
       state: 'on'
   action:
-    - service: light.turn_off
-      data:
-        entity_id: light.living_room_lights
+    - service: script.turn_off_living_room_lights
 
 - alias: Lights at sunset
   trigger:

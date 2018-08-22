@@ -1,9 +1,9 @@
 turn_on_living_room_lights:
   alias: Turn on living room lights
   sequence:
-  - service: light.turn_off
+  - service: light.turn_on
     entity_id: light.pineapple
-  - service: light.turn_off
+  - service: light.turn_on
     entity_id: light.tall
     data:
       brightness: 190

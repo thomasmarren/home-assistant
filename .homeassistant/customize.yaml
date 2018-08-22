@@ -1,18 +1,8 @@
-sensor.centralite_3210l_0e94db7f_1_2820:
-  friendly_name: AC
-
+# Motion
 binary_sensor.centralite_3328g_10c0cc70_1_1280:
   friendly_name: Stairs
 
-light.sengled_e11g13_03065177_1:
-  friendly_name: Bedroom
-
-light.sengled_e11g13_030675d0_1:
-  friendly_name: Basement
-
-sensor.centralite_3328g_10c0cc70_1_1026:
-  friendly_name: Bedroom Temp
-
+# Switch
 binary_sensor.centralite_3450l_05980111_1:
   friendly_name: Switch - Circle
 
@@ -24,6 +14,38 @@ binary_sensor.zha_05980111_3:
 
 binary_sensor.zha_05980111_4:
   friendly_name: Switch - Square (Turn off all downstairs lights)
+
+# Door Sensor
+binary_sensor.samjin_multi_010060fa_1_1280:
+  friendly_name: Bedroom Door
+  device_class: door
+
+binary_sensor.samjin_multi_0100615b_1_1280:
+  friendly_name: Basement Door
+  device_class: door
+  hidden: true
+
+# Lights
+light.sengled_e11g13_03065177_1:
+  friendly_name: Bedroom
+
+light.sengled_e11g13_030675d0_1:
+  friendly_name: Basement
+
+# Temperature
+sensor.samjin_multi_010060fa_1_1026:
+  friendly_name: Bedroom
+
+sensor.samjin_multi_0100615b_1_1026:
+  friendly_name: Basement
+  hidden: true
+
+sensor.centralite_3328g_10c0cc70_1_1026:
+  friendly_name: Stairs
+
+# Energy Consumption
+sensor.centralite_3210l_0e94db7f_1_2820:
+  friendly_name: AC
 
 sensor.sengled_e11g13_03065177_1_1794:
   friendly_name: Bedroom Sengled Sensor

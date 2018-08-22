@@ -12,6 +12,8 @@ bedroom:
     - light.sengled_e11g13_03065177_1
     - switch.centralite_3210l_0e94db7f_1
     - sensor.centralite_3210l_0e94db7f_1_2820
+    - binary_sensor.samjin_multi_010060fa_1_1280
+    - sensor.samjin_multi_010060fa_1_1026
 
 basement:
   name: Basement
