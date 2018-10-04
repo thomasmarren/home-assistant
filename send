@@ -6,3 +6,5 @@ scp -r ~/dev/homeassistant/.homeassistant/entity_registry.yaml homeassistant@192
 scp -r ~/dev/homeassistant/.homeassistant/customize.yaml homeassistant@192.168.1.175:/home/homeassistant/.homeassistant/customize.yaml
 scp -r ~/dev/homeassistant/.homeassistant/scripts.yaml homeassistant@192.168.1.175:/home/homeassistant/.homeassistant/scripts.yaml
 scp -r ~/dev/homeassistant/.homeassistant/groups.yaml homeassistant@192.168.1.175:/home/homeassistant/.homeassistant/groups.yaml
+scp -r ~/dev/homeassistant/.homeassistant/secrets.yaml homeassistant@192.168.1.175:/home/homeassistant/.homeassistant/secrets.yaml
+scp -r ~/dev/homeassistant/.homeassistant/known_devices.yaml homeassistant@192.168.1.175:/home/homeassistant/.homeassistant/known_devices.yaml

@@ -15,7 +15,7 @@ homeassistant:
 
 recorder:
   # Delete events and states older than 2 weeks
-  purge_days: 14
+  purge_interval: 14
 
 zha:
   usb_path: /dev/ttyUSB1
@@ -58,9 +58,9 @@ config:
 
 http:
   api_password: !secret http_password
-  ssl_certificate: /home/homeassistant/dehydrated/certs/alderstreet.duckdns.org/fullchain.pem
-  ssl_key: /home/homeassistant/dehydrated/certs/alderstreet.duckdns.org/privkey.pem
-  base_url: !secret base_url
+  # ssl_certificate: /home/homeassistant/dehydrated/certs/alderstreet.duckdns.org/fullchain.pem
+  # ssl_key: /home/homeassistant/dehydrated/certs/alderstreet.duckdns.org/privkey.pem
+  # base_url: !secret base_url
 
 # Checks for available updates
 # Note: This component will send some information about your system to
