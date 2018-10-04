@@ -11,7 +11,7 @@
   trigger:
     - entity_id: sensor.samjin_multi_010060fa_1_1026
       platform: numeric_state
-      below: 71
+      below: 76
   condition:
     - condition: time
       after: '22:00:00'
@@ -25,7 +25,7 @@
   trigger:
     - entity_id: sensor.samjin_multi_010060fa_1_1026
       platform: numeric_state
-      above: 73
+      above: 78
     - platform: time
       at: '22:05:00'
   condition:
@@ -48,11 +48,31 @@
     - condition: state
       entity_id: binary_sensor.samjin_multi_010060fa_1_1280
       state: 'on'
+    - condition: state
+      entity_id: device_tracker.galaxy_s8
+      state: home
   action:
     - service: notify.TOMS_PHONE
       data:
         title: Door's open
         message: Close the door. AC is coming on soon
+
+- alias: Bedroom door left open 2
+  trigger:
+    - platform: time
+      at: '22:04:00'
+  condition:
+    - condition: state
+      entity_id: binary_sensor.samjin_multi_010060fa_1_1280
+      state: 'on'
+    - condition: state
+      entity_id: device_tracker.galaxy_s8
+      state: home
+  action:
+    - service: notify.TOMS_PHONE
+      data:
+        title: Close the door dammit!
+        message: AC is on in 1 minute
 
 - alias: Open bedroom door
   trigger:
@@ -66,6 +86,26 @@
     - service: light.turn_on
       data:
         entity_id: light.sengled_e11g13_03065177_1
+
+- alias: Open basement door
+  trigger:
+    entity_id: binary_sensor.samjin_multi_0100615b_1_1280
+    platform: state
+    to: 'on'
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.sengled_e11g13_030675d0_1
+
+- alias: Close basement door
+  trigger:
+    entity_id: binary_sensor.samjin_multi_0100615b_1_1280
+    platform: state
+    to: 'off'
+  action:
+    - service: light.turn_off
+      data:
+        entity_id: light.sengled_e11g13_030675d0_1
 
 - alias: Go upstairs for bed
   trigger:
@@ -118,7 +158,7 @@
   action:
     - service: light.turn_on
       data:
-        entity_id: light.living_room_lights
+        entity_id: light.tall
         brightness: 80
 
 - alias: Stairs nightlight off
@@ -136,7 +176,7 @@
       entity_id: media_player.living_room
       state: 'unavailable'
     - condition: state
-      entity_id: light.living_room_lights
+      entity_id: light.tall
       state: 'on'
   action:
     - service: script.turn_off_living_room_lights
