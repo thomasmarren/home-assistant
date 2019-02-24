@@ -40,6 +40,19 @@
       data:
         entity_id: switch.centralite_3210l_0e94db7f_1
 
+- alias: Christmas lights on
+  trigger:
+    - platform: time
+      at: '16:00:00'
+  condition:
+    - condition: state
+      entity_id: group.all_devices
+      state: home
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.centralite_3210l_0e94db7f_1
+
 - alias: Bedroom door left open
   trigger:
     - platform: time
@@ -140,6 +153,14 @@
       data:
         entity_id: light.sengled_e11g13_03065177_1
 
+- alias: Switch - Dim bedroom light
+  trigger:
+    entity_id: binary_sensor.zha_05980111_1
+    platform: state
+    to: 'on'
+  action:
+    - service: script.dim_bedroom_light
+
 - alias: Stairs nightlight on
   trigger:
     entity_id: binary_sensor.centralite_3328g_10c0cc70_1_1280
@@ -215,6 +236,9 @@
       after: sunset
       after_offset: "-00:35:00"
   action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.centralite_3210l_0e94db7f_1
     - service: script.turn_on_living_room_lights
 
 - alias: Come home

@@ -47,6 +47,9 @@ notify:
     platform: pushbullet
     api_key: !secret pushbullet_api_key
 
+ifttt:
+  key: YOUR_API_KEY
+
 # Show links to resources in log and frontend
 # introduction:
 
@@ -58,9 +61,9 @@ config:
 
 http:
   api_password: !secret http_password
-  # ssl_certificate: /home/homeassistant/dehydrated/certs/alderstreet.duckdns.org/fullchain.pem
-  # ssl_key: /home/homeassistant/dehydrated/certs/alderstreet.duckdns.org/privkey.pem
-  # base_url: !secret base_url
+  ssl_certificate: /home/homeassistant/dehydrated/certs/alderstreet.duckdns.org/fullchain.pem
+  ssl_key: /home/homeassistant/dehydrated/certs/alderstreet.duckdns.org/privkey.pem
+  base_url: !secret base_url
 
 # Checks for available updates
 # Note: This component will send some information about your system to

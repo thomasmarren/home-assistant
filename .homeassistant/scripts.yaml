@@ -11,3 +11,11 @@ turn_off_living_room_lights:
   sequence:
   - service: light.turn_off
     entity_id: light.living_room_lights
+
+dim_bedroom_light:
+  alias: Dim bedroom light
+  sequence:
+  - service: light.turn_on
+    entity_id: light.bedroom_light
+    data:
+      brightness: 40
